@@ -1,8 +1,7 @@
 package com.hayato.vaadin.ui;
 
 import com.hayato.vaadin.backend.model.entity.User;
-import com.hayato.vaadin.backend.service.NewUserService;
-import com.vaadin.flow.component.HtmlComponent;
+import com.hayato.vaadin.backend.service.UserService;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -10,35 +9,23 @@ import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.renderer.NativeButtonRenderer;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
-import org.vaadin.crudui.crud.impl.GridCrud;
-
-import java.io.InputStream;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Route("")
 public class UserView extends VerticalLayout {
-    private final NewUserService userService;
+    private final UserService userService;
     Grid<User> grid = new Grid<>(User.class);
 
     @Autowired
-    public UserView(NewUserService userService) {
+    public UserView(UserService userService) {
         this.userService = userService;
 
         Button addNewUserButton = new Button("New User", e -> newUser());
@@ -52,8 +39,6 @@ public class UserView extends VerticalLayout {
         setupColumn();
         add(layout, grid);
         refreshGrid();
-//        //var grid = new Grid<>(User.class);
-//        add(new H1("User List"), grid);
     }
 
     private void setupColumn() {
@@ -69,11 +54,6 @@ public class UserView extends VerticalLayout {
 
             return new HorizontalLayout(editButton, deleteButton);
         }).setHeader("Manage");
-    }
-
-    private void setData() {
-//        List<User> people = userService.findAll();
-//        grid.setItems(people);
     }
 
     private void newUser() {

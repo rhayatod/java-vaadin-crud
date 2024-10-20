@@ -19,6 +19,9 @@ import java.util.Map;
 
 @Service
 public class JasperReportService {
+    @Value("${dir.path-input}")
+    private String pathInput;
+
     @Value("${dir.path-output}")
     private String pathOutput;
 

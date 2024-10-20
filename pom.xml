@@ -32,19 +32,19 @@
 	</properties>
 	<repositories>
 		<repository>
-			<id>Vaadin Directory</id>
-			<url>https://maven.vaadin.com/vaadin-addons</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
 			<id>Maven Directory</id>
 			<url>https://repo1.maven.org/maven2/</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+<!--		<repository>-->
+<!--			<id>Vaadin Directory</id>-->
+<!--			<url>https://maven.vaadin.com/vaadin-addons</url>-->
+<!--			<snapshots>-->
+<!--				<enabled>false</enabled>-->
+<!--			</snapshots>-->
+<!--		</repository>-->
 	</repositories>
 	<dependencies>
 		<dependency>
@@ -60,12 +60,6 @@
 			<artifactId>vaadin-spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.vaadin.crudui</groupId>
-			<artifactId>crudui</artifactId>
-			<version>7.1.0</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
@@ -80,6 +74,33 @@
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.21.4</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-functions</artifactId>
+			<version>6.21.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-fonts</artifactId>
+			<version>6.21.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-digester3</artifactId>
+			<version>3.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>

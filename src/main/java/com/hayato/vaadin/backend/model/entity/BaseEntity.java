@@ -5,15 +5,11 @@ import lombok.Data;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 @Data
 @MappedSuperclass
@@ -32,15 +28,4 @@ public class BaseEntity implements Serializable {
 
     @Column(name = "update_user", length = 50, nullable = false)
     private String updateUser;
-
-//    @PrePersist
-//    public void onInsert() {
-//        createDate = Timestamp.from(ZonedDateTime.now(ZoneId.of("Asia/Kolkata")).toInstant());
-//        updateDate = createDate;
-//    }
-//
-//    @PreUpdate
-//    public void onUpdate() {
-//        updateDate = Timestamp.from(ZonedDateTime.now(ZoneId.of("Asia/Kolkata")).toInstant());
-//    }
 }
