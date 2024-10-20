@@ -16,8 +16,13 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Route("")
 public class UserView extends VerticalLayout {
@@ -85,36 +90,28 @@ public class UserView extends VerticalLayout {
 
     @Async
     private void generateReport()  {
-//        try{
-////            System.out.println("start generating "+ fileName);
-//            long startTime = System.nanoTime();
-//            JasperPrint jasperPrint = JasperFillManager.fillReport(url, params, conn);
-//            SimplePdfExporterConfiguration config = new SimplePdfExporterConfiguration();
-//            JRPdfExporter exporter = new JRPdfExporter();
-//            if ( (boolean) params.get("isClientStatement")){
-//                String notsusUrl = new ClassPathResource("templates/jasper/ClientStatement/"+ "NotasiKhusus" + ".jasper").getURL().getPath();
-////                String notsusUrl = new ClassPathResource("templates/jasper/ClientStatement/"+ "NotasiKhusus" + ".jasper").getURL().getPath();
-////                JasperPrint notsusPrint = JasperFillManager.fillReport(notsusUrl, params, conn);
-//                List jprintlist = new ArrayList();
-//                jprintlist.add(jasperPrint);
-////                jprintlist.add(notsusPrint);
-//                exporter.setExporterInput(SimpleExporterInput.getInstance(jprintlist));
-//            }
-//
-//            String filePath = pathOutput + fileName + ".pdf";
-//            exporter.setConfiguration(config);
-//            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(filePath));
-//
-//            exporter.exportReport();
-//            long endTime   = System.nanoTime();
-//            double totalTime = (endTime - startTime)/1000000000;
-//            System.out.println("done generating "+ fileName + " in " + totalTime + " seconds");
-//
-//        } catch (Exception e){
-//            System.out.println("error generating sid " + params.get("sid"));
-//            System.out.println(e.getMessage());
-//        }
+        try {
+            // Path to your Jasper report file (.jrxml)
+            String reportPath = getClass().getResource("/reports/user_report.jasper").getPath();
+//            JasperReport jasperReport = JasperCompileManager.compileReport(reportPath);
+
+            // Data Source for JasperReport
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(userService.findAll());
+
+            // Parameters for report (if any)
+            Map<String, Object> parameters = new HashMap<>();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, dataSource);
+
+            // Export report to PDF (or other formats)
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "user_list_report.pdf");
+
+            Notification.show("Report generated successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Notification.show("Error generating report: " + e.getMessage(), 3000, Notification.Position.MIDDLE);
         }
+    }
 
     private void refreshGrid() {
         grid.setItems(userService.findAll());

@@ -37,9 +37,7 @@ public class JasperReportService {
             SimplePdfExporterConfiguration config = new SimplePdfExporterConfiguration();
             JRPdfExporter exporter = new JRPdfExporter();
             if ( (boolean) params.get("isClientStatement")){
-                String notsusUrl = new ClassPathResource("templates/jasper/ClientStatement/"+ "NotasiKhusus" + ".jasper").getURL().getPath();
-//                String notsusUrl = new ClassPathResource("templates/jasper/ClientStatement/"+ "NotasiKhusus" + ".jasper").getURL().getPath();
-//                JasperPrint notsusPrint = JasperFillManager.fillReport(notsusUrl, params, conn);
+                String notsusUrl = new ClassPathResource("reports/"+ "user_report.jasper").getURL().getPath();
                 List jprintlist = new ArrayList();
                 jprintlist.add(jasperPrint);
 //                jprintlist.add(notsusPrint);
