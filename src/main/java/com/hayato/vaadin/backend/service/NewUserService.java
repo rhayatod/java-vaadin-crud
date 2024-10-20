@@ -29,4 +29,9 @@ public class NewUserService {
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
+
+    public Boolean findByUsernameOrEmail(String username, String email) {
+        return !userRepository.findByUsernameOrEmail(username, email).isEmpty();
+    }
+
 }
