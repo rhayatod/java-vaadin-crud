@@ -128,14 +128,11 @@ public class UserView extends VerticalLayout {
         }
 
         Button saveButton = new Button("Save", e -> {
+            var isExist = userService.findByUsernameOrEmail(nameField.getValue(), emailField.getValue());
 
-            if (user == null) {
-                var isExist = userService.findByUsernameOrEmail(nameField.getValue(), emailField.getValue());
-
-                if (isExist) {
-                    showNotificationError("Username or email already exists");
-                    return;
-                }
+            if (isExist) {
+                showNotificationError("Username or email already exists");
+                return;
             }
 
             var newUser = checkUser(user);
